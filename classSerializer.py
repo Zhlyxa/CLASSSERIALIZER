@@ -77,4 +77,3 @@ class ClassSerializer:
                         break
             
             json.dump(data,file)
-
