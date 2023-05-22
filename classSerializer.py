@@ -1,5 +1,6 @@
 import json
 
+
 class ClassSerializer:
     @staticmethod
     def serializer(obj, fileName: str):
@@ -54,14 +55,15 @@ class ClassSerializer:
             ``fileName`` (str):имя файла для результата сериализации (``.json``)\n
             ``schema`` (dict): структура результата сериализации вида ``KeyClasses (str):TypeClasses (str)``\n
         """
-        with open(fileName,'w') as file:
-            data = {key:[] for key in schema}
+        with open(fileName, 'w') as file:
+            data = {key: [] for key in schema}
 
             for obj in objs:
                 className = str(obj.__class__)
-                className = className[className.rfind('.')+1:className.rfind("'")]
+                className = className[className.rfind(
+                    '.')+1:className.rfind("'")]
 
-                for keyClass,typeClass in schema.items():
+                for keyClass, typeClass in schema.items():
                     if typeClass == className:
                         item = {}
                         attributes = obj.__dict__
@@ -71,9 +73,10 @@ class ClassSerializer:
                                 item[attribute[attribute.find(
                                     '__')+2:]] = obj.__getattribute__(attribute)
                             else:
-                                item[attribute] = obj.__getattribute__(attribute)
+                                item[attribute] = obj.__getattribute__(
+                                    attribute)
 
                         data[keyClass].append(item)
                         break
-            
-            json.dump(data,file)
+
+            json.dump(data, file)
